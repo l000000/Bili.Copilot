@@ -91,6 +91,18 @@ public sealed partial class VideoItemViewModel : ViewModelBase<VideoInformation>
     }
 
     [RelayCommand]
+    private void OpenInNewWindow()
+    {
+        if (_playAction is not null)
+        {
+            _playAction(this);
+            return;
+        }
+
+        this.Get<AppViewModel>().OpenPlayerCommand.Execute(new MediaSnapshot(Data, false, true));
+    }
+
+    [RelayCommand]
     private void ShowUserSpace()
     {
         if (Data.Publisher?.User is not null)

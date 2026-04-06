@@ -74,6 +74,16 @@ public sealed partial class VideoCardControl : LayoutControlBase<VideoItemViewMo
         };
     }
 
+    private static MenuFlyoutItem CreateOpenInNewWindowItem()
+    {
+        return new MenuFlyoutItem()
+        {
+            Text = ResourceToolkit.GetLocalizedString(StringNames.OpenInNewWindow),
+            Icon = new FluentIcons.WinUI.SymbolIcon { Symbol = FluentIcons.Common.Symbol.WindowAd },
+            Tag = nameof(ViewModel.OpenInNewWindowCommand),
+        };
+    }
+
     private static MenuFlyoutItem CreateUserSpaceItem()
     {
         return new MenuFlyoutItem()
@@ -166,6 +176,7 @@ public sealed partial class VideoCardControl : LayoutControlBase<VideoItemViewMo
     {
         var menuFlyout = new MenuFlyout() { ShouldConstrainToRootBounds = false };
         menuFlyout.Items.Add(CreatePrivatePlayItem());
+        menuFlyout.Items.Add(CreateOpenInNewWindowItem());
         if (ViewModel.Style != VideoCardStyle.Moment && ViewModel.IsUserValid)
         {
             menuFlyout.Items.Add(CreateUserSpaceItem());
@@ -211,6 +222,9 @@ public sealed partial class VideoCardControl : LayoutControlBase<VideoItemViewMo
                     break;
                 case nameof(ViewModel.ShowUserSpaceCommand):
                     item.Command = ViewModel.ShowUserSpaceCommand;
+                    break;
+                case nameof(ViewModel.OpenInNewWindowCommand):
+                    item.Command = ViewModel.OpenInNewWindowCommand;
                     break;
                 case nameof(ViewModel.AddToViewLaterCommand):
                     item.Command = ViewModel.AddToViewLaterCommand;
