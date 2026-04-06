@@ -15,19 +15,25 @@ public sealed class MediaSnapshot
     /// </summary>
     public MediaSnapshot(
         VideoInformation video,
-        bool isPrivate = false)
+        bool isPrivate = false,
+        bool forceOpenInNewWindow = false)
     {
         Video = video;
         Type = BiliMediaType.Video;
         IsPrivate = isPrivate;
+        ForceOpenInNewWindow = forceOpenInNewWindow;
     }
 
-    public MediaSnapshot(SeasonInformation? season, EpisodeInformation? episode)
+    public MediaSnapshot(
+        SeasonInformation? season,
+        EpisodeInformation? episode,
+        bool forceOpenInNewWindow = false)
     {
         Season = season;
         Episode = episode;
         Type = BiliMediaType.Pgc;
         IsPrivate = false;
+        ForceOpenInNewWindow = forceOpenInNewWindow;
     }
 
     /// <summary>
@@ -49,6 +55,11 @@ public sealed class MediaSnapshot
     /// 无痕播放（不上报历史记录）.
     /// </summary>
     public bool IsPrivate { get; }
+
+    /// <summary>
+    /// 强制在新窗口打开.
+    /// </summary>
+    public bool ForceOpenInNewWindow { get; }
 
     /// <summary>
     /// 媒体类型.
