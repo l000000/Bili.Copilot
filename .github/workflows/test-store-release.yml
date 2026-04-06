@@ -15,7 +15,7 @@ permissions:
 jobs:
   build-store:
     name: Build Store Package (x64)
-    runs-on: self-hosted
+    runs-on: windows-2022
     env:
       Solution_Name: src/Bili.Copilot.sln
       Project_Path: src/Desktop/BiliCopilot.UI/BiliCopilot.UI.csproj

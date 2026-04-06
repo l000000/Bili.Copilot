@@ -14,7 +14,7 @@ permissions:
 
 jobs:
   build:
-    runs-on: self-hosted
+    runs-on: windows-2022
 
     strategy:
       fail-fast: false

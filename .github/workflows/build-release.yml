@@ -15,7 +15,7 @@ permissions:
 jobs:
   build-store:
     name: Build Store Package
-    runs-on: self-hosted
+    runs-on: windows-2022
     strategy:
       fail-fast: false
       matrix:
@@ -100,7 +100,7 @@ jobs:
 
   build-sideload:
     name: Build Sideload Package
-    runs-on: self-hosted
+    runs-on: windows-2022
     strategy:
       fail-fast: false
       matrix:
