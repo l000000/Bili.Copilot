@@ -14,8 +14,7 @@ permissions:
 
 jobs:
   build:
-    runs-on: self-hosted
-    if: github.actor == 'Richasy'
+    runs-on: windows-2022
 
     strategy:
       fail-fast: false
@@ -55,11 +54,9 @@ jobs:
           $projectDir = Split-Path -Parent $manifestPath
           $assocPath = Join-Path $projectDir "Package.StoreAssociation.xml"
 
-          # Create Package.StoreAssociation.xml
           $assocContent = '${{ secrets.PACKAGE_STORE_ASSOCIATION }}'
           Set-Content -Path $assocPath -Value $assocContent
 
-          # Update Package.appxmanifest
           $packageId = "${{ secrets.PACKAGE_ID }}"
           $publisherId = "${{ secrets.PUBLISHER_ID }}"
 
@@ -81,22 +78,3 @@ jobs:
         with:
           name: BiliCopilot.UI-Store-${{ inputs.version }}-${{ env.Platform }}-${{ env.Configuration }}
           path: ${{ github.workspace }}\FinalPackages\*
-
-  notify:
-    needs: build
-    runs-on: self-hosted
-    if: always() && github.actor == 'Richasy'
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Notify Telegram
-        uses: ./.github/actions/notify-telegram
-        with:
-          token: ${{ secrets.TELEGRAM_TOKEN }}
-          chat-id: ${{ secrets.TELEGRAM_CHAT_ID }}
-          status: ${{ needs.build.result }}
-          version: ${{ inputs.version }}
-          platform: "x64, arm64"
-          build-type: "Store"
-          github-token: ${{ secrets.GITHUB_TOKEN }}
